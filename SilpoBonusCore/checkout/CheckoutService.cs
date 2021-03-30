@@ -11,22 +11,16 @@ namespace SilpoBonusCore.Tests
 
         public void OpenCheck()
         {
-            check = new Check();
-            check.products = new List<Product>();
-            check.totalCost = 0;
+            check = new Check(); 
         }
 
         public void AddProduct(Product product)
         {
-            check.products.Add(product);
+            check.AddProduct(product);
         }
 
         public Check CloseCheck()
         {
-            foreach (Product product in check.products)
-            {
-                check.totalCost += product.price;
-            }
             return check;
         }
     }

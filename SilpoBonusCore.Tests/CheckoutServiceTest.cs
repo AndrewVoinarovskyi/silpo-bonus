@@ -26,7 +26,6 @@ namespace SilpoBonusCore.Tests
             checkoutService.AddProduct(new Product(7, "Milk"));
             checkoutService.AddProduct(new Product(3, "Bread"));
             Check check = checkoutService.CloseCheck();
-            check.products.Clear();
 
             Assert.Equal(10, check.GetTotalCost());
         }
