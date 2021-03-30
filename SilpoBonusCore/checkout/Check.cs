@@ -8,7 +8,7 @@ namespace SilpoBonusCore.Tests
         List<Product> products = new List<Product>();
         int totalCost;
 
-        public object GetTotalCost()
+        public int GetTotalCost()
         {
             foreach (Product product in this.products)
             {
@@ -20,6 +20,11 @@ namespace SilpoBonusCore.Tests
         internal void AddProduct(Product product)
         {
             products.Add(product);
+        }
+
+        public int GetTotalPoints()
+        {
+            return GetTotalCost();
         }
     }
 }

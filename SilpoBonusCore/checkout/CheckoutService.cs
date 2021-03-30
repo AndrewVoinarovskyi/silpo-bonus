@@ -7,6 +7,7 @@ namespace SilpoBonusCore.Tests
     {
 
         Check check;
+        Check closedCheck;
         
 
         public void OpenCheck()
@@ -16,12 +17,18 @@ namespace SilpoBonusCore.Tests
 
         public void AddProduct(Product product)
         {
+            if(check == null)
+            {
+                OpenCheck();
+            }
             check.AddProduct(product);
         }
 
         public Check CloseCheck()
         {
-            return check;
+            closedCheck = check;
+            check = null;
+            return closedCheck;
         }
     }
 }
