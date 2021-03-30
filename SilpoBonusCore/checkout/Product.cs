@@ -2,8 +2,8 @@ namespace SilpoBonusCore.Tests
 {
     public class Product
     {
-        public int price;
-        public string name;
+        public readonly int price;
+        public readonly string name;
 
         public Product(int price, string name)
         {
