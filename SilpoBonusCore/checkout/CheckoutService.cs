@@ -31,21 +31,27 @@ namespace SilpoBonusCore
             return closedCheck;
         }
 
-        public void UseOffer(AnyGoodsOffer offer)
+        public void UseOffer(Offer offer)
         {
-            if(offer is FactorByCategoryOffer)
-            {
-                FactorByCategoryOffer fbOffer = (FactorByCategoryOffer) offer;
-                int points = check.GetCostByCategory(fbOffer.category);
-                check.AddPoints(points * (fbOffer.factor - 1));
-            }
-            else
-            {
-                if(offer.totalCost <= check.GetTotalCost())
-                {
-                    check.AddPoints(offer.points);
-                }
-            }
+            offer.Apply(check, offer);
+            // if(offer is FactorByCategoryOffer)
+            // {
+                // FactorByCategoryOffer fbOffer = (FactorByCategoryOffer) offer;
+                // int points = check.GetCostByCategory(fbOffer.category);
+                // check.AddPoints(points * (fbOffer.factor - 1));
+            // }
+            // else
+            // {
+            //     if(offer is AnyGoodsOffer)
+            //     {
+                    // AnyGoodsOffer agOffer = (AnyGoodsOffer) offer;
+                    // if(agOffer.totalCost <= check.GetTotalCost())
+                    // {
+                    //     check.AddPoints(agOffer.points);
+                    // }
+                // }
+            // }
+            
         }
     }
 }

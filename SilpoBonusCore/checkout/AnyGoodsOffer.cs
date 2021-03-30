@@ -1,6 +1,6 @@
 namespace SilpoBonusCore
 {
-    public class AnyGoodsOffer
+    public class AnyGoodsOffer : Offer
     {
         public readonly int totalCost;
         public readonly int points;
@@ -9,6 +9,15 @@ namespace SilpoBonusCore
         {
             this.totalCost = totalCost;
             this.points = points;
+        }
+
+        public override void Apply(Check check, Offer offer)
+        {
+            AnyGoodsOffer agOffer = (AnyGoodsOffer) offer;
+            if(agOffer.totalCost <= check.GetTotalCost())
+            {
+                check.AddPoints(agOffer.points);
+            }
         }
     }
 }
