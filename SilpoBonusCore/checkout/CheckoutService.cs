@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SilpoBonusCore.Tests
+namespace SilpoBonusCore
 {
     public class CheckoutService
     {
@@ -29,6 +29,23 @@ namespace SilpoBonusCore.Tests
             closedCheck = check;
             check = null;
             return closedCheck;
+        }
+
+        public void UseOffer(AnyGoodsOffer offer)
+        {
+            if(offer is FactorByCategoryOffer)
+            {
+                FactorByCategoryOffer fbOffer = (FactorByCategoryOffer) offer;
+                int points = check.GetCostByCategory(fbOffer.category);
+                check.AddPoints(points * (fbOffer.factor - 1));
+            }
+            else
+            {
+                if(offer.totalCost <= check.GetTotalCost())
+                {
+                    check.AddPoints(offer.points);
+                }
+            }
         }
     }
 }

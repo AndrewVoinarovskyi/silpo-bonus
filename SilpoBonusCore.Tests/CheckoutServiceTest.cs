@@ -16,8 +16,8 @@ namespace SilpoBonusCore.Tests
             checkoutService  = new CheckoutService();
             checkoutService.OpenCheck();
             
-            milk_7 = new Product(7, "Milk");
-            bread_3 = new Product(3, "Bread");
+            milk_7 = new Product(7, "Milk", Category.MILK);
+            bread_3 = new Product(3, "Bread", Category.BREAD);
         }
 
         [Fact]
@@ -49,7 +49,6 @@ namespace SilpoBonusCore.Tests
             checkoutService.AddProduct(bread_3);
             Check breadCheck = checkoutService.CloseCheck();
             Assert.Equal(3, breadCheck.GetTotalCost());
-
         }
 
         [Fact]
@@ -60,9 +59,49 @@ namespace SilpoBonusCore.Tests
             Check check = checkoutService.CloseCheck();
             
             Assert.Equal(10, check.GetTotalPoints());
+        }
+
+        [Fact]
+        void UseOffer__AddOfferPoints()
+        {
+            checkoutService.AddProduct(milk_7);
+            checkoutService.AddProduct(bread_3);
+            
+            checkoutService.UseOffer(new AnyGoodsOffer(6, 2));
+            
+            Check check = checkoutService.CloseCheck();
+            
+            Assert.Equal(12, check.GetTotalPoints());
+
+        }
+
+        [Fact]
+        void UseOffer__WhenCostLessThanRequired__DoNothing()
+        {
+            checkoutService.AddProduct(bread_3);
+            
+
+            checkoutService.UseOffer(new AnyGoodsOffer(6, 2));
+            
+            Check check = checkoutService.CloseCheck();
+            
+            Assert.Equal(3, check.GetTotalPoints());
+
+        }
+
+        [Fact]
+        void useOffer__FactorByCategory()
+        {
+            checkoutService.AddProduct(milk_7);
+            checkoutService.AddProduct(milk_7);
+            checkoutService.AddProduct(bread_3);
+            
+            checkoutService.UseOffer(new FactorByCategoryOffer(Category.MILK, 2));
+            
+            Check check = checkoutService.CloseCheck();
+            
+            Assert.Equal(31, check.GetTotalPoints());
 
         }
     }
-
-    
 }
